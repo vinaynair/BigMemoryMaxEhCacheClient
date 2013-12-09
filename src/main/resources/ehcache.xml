@@ -3,8 +3,14 @@
 <ehcache name="cacheManagerOne" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
 
+    <!--
+    Local offheap is a very powerful feature that expands the size of data that can be co-located in-process
+    within the app. It can be set using the setting like maxBytesLocalOffHeap="256m".
+    This capability is not available in the trial license.
+    Contact SoftwareAG/Terracotta @ http://www.terracotta.org/contact for any information related to license or beyond
+    -->
 
-    <cache name="distributedInMemoryStoreOne" maxEntriesLocalHeap="100" maxBytesLocalOffHeap="256m">
+    <cache name="distributedInMemoryStoreOne" maxEntriesLocalHeap="100">
         <terracotta/>
     </cache>
     <terracottaConfig url="localhost:9510"/>
