@@ -7,12 +7,11 @@ import net.sf.ehcache.Element;
  */
 public class Main {
     public static void main(String[] args) {
-        if(args.length<1){
+        if (args.length < 1) {
             System.out.println("Usage: java Main put/get");
             System.exit(0);
         }
 
-        int numberOfElements=1000;
 
         // Get hold of the distributed cache defined within ehcache config xml
         // (defaults to ehcache.xml classpath resource)
@@ -20,19 +19,20 @@ public class Main {
         CacheManager cacheManager = CacheManager.getInstance();
         Cache cache = cacheManager.getCache("distributedInMemoryStoreOne");
 
-        if(args[0].equals("put")){
-            put(cache,numberOfElements);
+        if (args[0].equals("put")) {
+            put(cache);
         } else {
-            get(cache,numberOfElements);
+            get(cache);
         }
         cacheManager.shutdown();
     }
-    public static void put(Cache cache,int numberOfElements) {
+
+    public static void put(Cache cache) {
 
         //=======================================================
         //put KeyValue(KV) pairs into distributed in-memory store
         //=======================================================
-        for (int i = 0; i < numberOfElements; i++) {
+        for (int i = 0; i < 10; i++) {
             //construct key+value pair
             String key = "key-" + i;
             String value = "value-" + i;
@@ -40,15 +40,17 @@ public class Main {
             //push KV pair into BM
             //=====================
             cache.put(new Element(key, value));
+            System.out.println("Put-ed [" + key + "," + value + "] into the distributed in-memory store i.e. TSA");
         }
-        System.out.println("Put " + cache.getSize() + " KV pairs into the in-memory store");
+
     }
-    public static void get(Cache cache,int numberOfElements){
+
+    public static void get(Cache cache) {
         //=======================================================
         // get KV pairs from distributed in-memory store
         //======================================================
         System.out.println("Got the following key back from BigMemory");
-        for (int i = 0; i < numberOfElements; i++) {
+        for (int i = 0; i < 10; i++) {
             String key = "key-" + i;
 
             //get value from BM given the key
@@ -56,11 +58,7 @@ public class Main {
             Object value = cache.get(key).getObjectValue();
 
 
-            // Do something useful with the value
-
-            if (value.equals("value-" + i)) { // check that we got the value we put earlier
-                System.out.print(key + ",");
-            }
+            System.out.println("Got  [" + key + "," + value + "] from the distributed in-memory store i.e. TSA");
 
         }
     }

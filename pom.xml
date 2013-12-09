@@ -19,7 +19,7 @@
         <heap>2048m</heap>
         <!-- exec property -->
         <app>Main</app>
-        <app>put</app>
+        <action>put</action>
 
     </properties>
 
