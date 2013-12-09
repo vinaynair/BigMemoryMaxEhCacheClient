@@ -4,7 +4,7 @@
          xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
 
 
-    <cache name="distributedInMemoryStoreOne" maxEntriesLocalHeap="100">
+    <cache name="distributedInMemoryStoreOne" maxEntriesLocalHeap="100" maxBytesLocalOffHeap="256m">
         <terracotta/>
     </cache>
     <terracottaConfig url="localhost:9510"/>

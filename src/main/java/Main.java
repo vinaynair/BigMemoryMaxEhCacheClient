@@ -7,12 +7,12 @@ import net.sf.ehcache.Element;
  */
 public class Main {
     public static void main(String[] args) {
-        int numberOfElements;
-        if (args.length < 1) {
-            numberOfElements = 1000;
-        } else {
-            numberOfElements = Integer.parseInt(args[0]);
+        if(args.length<1){
+            System.out.println("Usage: java Main put/get");
+            System.exit(0);
         }
+
+        int numberOfElements=1000;
 
         // Get hold of the distributed cache defined within ehcache config xml
         // (defaults to ehcache.xml classpath resource)
@@ -20,6 +20,14 @@ public class Main {
         CacheManager cacheManager = CacheManager.getInstance();
         Cache cache = cacheManager.getCache("distributedInMemoryStoreOne");
 
+        if(args[0].equals("put")){
+            put(cache,numberOfElements);
+        } else {
+            get(cache,numberOfElements);
+        }
+        cacheManager.shutdown();
+    }
+    public static void put(Cache cache,int numberOfElements) {
 
         //=======================================================
         //put KeyValue(KV) pairs into distributed in-memory store
@@ -34,7 +42,8 @@ public class Main {
             cache.put(new Element(key, value));
         }
         System.out.println("Put " + cache.getSize() + " KV pairs into the in-memory store");
-
+    }
+    public static void get(Cache cache,int numberOfElements){
         //=======================================================
         // get KV pairs from distributed in-memory store
         //======================================================
@@ -54,8 +63,7 @@ public class Main {
             }
 
         }
-
-        cacheManager.shutdown();
-
     }
+
+
 }

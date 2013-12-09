@@ -19,6 +19,7 @@
         <heap>2048m</heap>
         <!-- exec property -->
         <app>Main</app>
+        <app>put</app>
 
     </properties>
 
@@ -60,6 +61,7 @@
                         <argument>-classpath</argument>
                         <classpath/>
                         <argument>${app}</argument>
+                        <arguemtn>${action}</arguemtn>
                     </arguments>
                 </configuration>
             </plugin>
